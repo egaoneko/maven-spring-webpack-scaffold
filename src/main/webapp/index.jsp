@@ -4,15 +4,18 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>HelloWorld Index Page</title>
+        <title>Index Page</title>
+        <link rel="stylesheet" href="resources/static/dist/css/entry.css">
     </head>
 
     <body>
-        <center>
-            <h2>Hello World</h2>
+        <div class="center">
+            <h2>Maven spring webpack scaffold</h2>
             <h3>
-                <a href="hello?name=Frank">Click Here</a>
+                <a href="app1">App1 click here</a>
+                <br>
+                <a href="app2">App2 click here</a>
             </h3>
-        </center>
+        </div>
     </body>
 </html>
