@@ -213,7 +213,6 @@
                             <arguments>run-script dev-build</arguments>
                         </configuration>
                     </execution>
-
                     <execution>
                         <id>npm-watch</id>
                         <goals>
@@ -222,6 +221,16 @@
                         <phase>generate-resources</phase>
                         <configuration>
                             <arguments>run-script watch</arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>npm-test</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <arguments>run-script test</arguments>
                         </configuration>
                     </execution>
                 </executions>

@@ -1,6 +1,6 @@
 import '../css/main.css';
 
-const hello = "Hello"
+const hello = "Hello";
 
 export {
     hello

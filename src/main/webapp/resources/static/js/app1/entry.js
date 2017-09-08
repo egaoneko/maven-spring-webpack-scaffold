@@ -1,3 +1,4 @@
+import module from './module'
 import '../../css/app1.scss';
 
 const name = "app1";
@@ -9,5 +10,6 @@ const init = (name) => {
 
 export {
     name,
+    module,
     init
 };

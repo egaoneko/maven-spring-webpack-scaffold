@@ -1,27 +1,29 @@
+/* global module, process, require */
+
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const fs = require('fs');
 
+const gc = require('./global.config.js');
+
+// extract style
 const extractCss = new ExtractTextPlugin({
     filename: "css/[name].css",
 });
-
 const extractSass = new ExtractTextPlugin({
     filename: "css/[name].css",
     // disable: process.env.NODE_ENV === "development"
 });
 
-const basePath = '.';
-const baseDir = '/src/main/webapp';
-const distDir = '/dist';
-const resourceDir = '/resources/static';
-const sourceDir = basePath+ baseDir + resourceDir;
-const outputDir = baseDir + resourceDir + distDir;
+// dir path
+const sourceDir = gc.basePath+ gc.baseDir + gc.resourceDir;
+const outputDir = gc.baseDir + gc.resourceDir + gc.distDir;
 
 const devPort = 9090;
-const devOutputDir = resourceDir + distDir;
+const devOutputDir = gc.resourceDir + gc.distDir;
 
+// generate entry
 const fileDir = sourceDir + '/js';
 const read = (dir) =>
     fs.readdirSync(dir)
@@ -46,6 +48,7 @@ const getEntry = (files) => {
 };
 const entry = getEntry(read(fileDir));
 
+// webpack config
 const config = {
     entry: Object.assign({
         vendors: ['jquery']
@@ -65,9 +68,6 @@ const config = {
     plugins: [
         extractCss,
         extractSass,
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendors',
-        }),
         new webpack.ProvidePlugin({
             $: "jquery",
             jquery: "jQuery"
@@ -80,7 +80,7 @@ const config = {
     module: {
         rules: [{
             enforce: 'pre',
-            test: /\.js$/,
+            test: /\.(js|jsx)?$/,
             loader: 'eslint-loader',
             exclude: /(node_modules|bower_components)/
         }, {
@@ -118,13 +118,18 @@ const config = {
 
 const env = process.env.NODE_ENV;
 
+// develop phase
 if (env === 'development') {
     config.output.publicPath = 'http://localhost:' + devPort + devOutputDir;
 }
 
+// production phase
 if (env === 'production') {
     config.devtool = '#source-map';
     config.plugins = (config.plugins || []).concat([
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendors',
+        }),
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: '"production"'
