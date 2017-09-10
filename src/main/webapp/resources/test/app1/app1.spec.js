@@ -1,3 +1,5 @@
+/* global describe */
+
 import chai from "chai";
 import * as sc from "../../static/js/app1/entry";
 

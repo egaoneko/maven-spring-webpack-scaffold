@@ -2,18 +2,18 @@
 
 const path = require('path');
 const webpack = require('webpack');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const fs = require('fs');
 
 const gc = require('./global.config.js');
 
 // extract style
 const extractCss = new ExtractTextPlugin({
-    filename: "css/[name].css",
+    filename: 'css/[name].css',
 });
 const extractSass = new ExtractTextPlugin({
-    filename: "css/[name].css",
-    // disable: process.env.NODE_ENV === "development"
+    filename: 'css/[name].css',
+    // disable: process.env.NODE_ENV === 'development'
 });
 
 // dir path
@@ -42,7 +42,7 @@ const getEntry = (files) => {
     const entry = {};
     files.forEach(file => {
         const key = file.replace(fileDir + '/', '').replace('.js', '');
-        entry[key] = file;
+        entry[key] = ['babel-polyfill', file];
     });
     return entry;
 };
@@ -50,17 +50,16 @@ const entry = getEntry(read(fileDir));
 
 // webpack config
 const config = {
-    entry: Object.assign({
-        vendors: ['jquery']
-    }, entry),
+    entry: Object.assign({}, gc.vendors.entry, entry),
     output: {
         path: __dirname + outputDir,
         filename: 'js/[name].bundle.js',
         publicPath: '/',
-        libraryTarget: "umd", // export itself to a global var
-        library: "sc" // name of the global var: "sc"
+        libraryTarget: 'umd', // export itself to a global var
+        library: 'sc' // name of the global var: 'sc'
     },
     resolve: {
+        modules: ['node_modules'],
         extensions: ['.js', '.jsx', '.css', '.scss']
     },
     devtool: 'source-map',
@@ -68,14 +67,18 @@ const config = {
     plugins: [
         extractCss,
         extractSass,
-        new webpack.ProvidePlugin({
-            $: "jquery",
-            jquery: "jQuery"
-        })
+        new webpack.ProvidePlugin(gc.vendors.providePlugin)
     ],
     devServer: {
+        host: '0.0.0.0',
+        publicPath: 'http://localhost:' + devPort + '/',
         port: devPort,
-        publicPath: 'http://localhost:' + devPort + '/'
+        disableHostCheck: true,
+        noInfo: true,
+        inline: true,
+        proxy: {
+            '**': 'http://localhost:8080'
+        }
     },
     module: {
         rules: [{
@@ -94,23 +97,23 @@ const config = {
         }, {
             test: /\.css$/,
             use: extractCss.extract({
-                fallback: "style-loader",
-                use: "css-loader"
+                fallback: 'style-loader',
+                use: 'css-loader'
             })
         }, {
             test: /\.scss$/,
             use: extractSass.extract({
                 use: [{
-                    loader: "css-loader", options: {
+                    loader: 'css-loader', options: {
                         sourceMap: true
                     }
                 }, {
-                    loader: "sass-loader", options: {
+                    loader: 'sass-loader', options: {
                         sourceMap: true
                     }
                 }],
                 // use style-loader in development
-                fallback: "style-loader"
+                fallback: 'style-loader'
             })
         }]
     }
