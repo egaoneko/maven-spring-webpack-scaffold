@@ -1,7 +1,7 @@
 /* global jQuery */
 
 import module from './module'
-import '../../css/app1.scss';
+import '../../css/app1.css';
 
 const name = "app1";
 const init = (name) => {

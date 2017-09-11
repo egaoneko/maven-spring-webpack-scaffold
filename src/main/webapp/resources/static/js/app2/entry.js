@@ -1,4 +1,4 @@
-import '../../css/app2.scss';
+import '../../css/app2.css';
 
 const name = "app2";
 const init = (name) => {

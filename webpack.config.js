@@ -11,10 +11,6 @@ const gc = require('./global.config.js');
 const extractCss = new ExtractTextPlugin({
     filename: 'css/[name].css',
 });
-const extractSass = new ExtractTextPlugin({
-    filename: 'css/[name].css',
-    // disable: process.env.NODE_ENV === 'development'
-});
 
 // dir path
 const sourceDir = gc.basePath+ gc.baseDir + gc.resourceDir;
@@ -66,7 +62,6 @@ const config = {
     cache: true,
     plugins: [
         extractCss,
-        extractSass,
         new webpack.ProvidePlugin(gc.vendors.providePlugin)
     ],
     devServer: {
@@ -99,21 +94,6 @@ const config = {
             use: extractCss.extract({
                 fallback: 'style-loader',
                 use: 'css-loader'
-            })
-        }, {
-            test: /\.scss$/,
-            use: extractSass.extract({
-                use: [{
-                    loader: 'css-loader', options: {
-                        sourceMap: true
-                    }
-                }, {
-                    loader: 'sass-loader', options: {
-                        sourceMap: true
-                    }
-                }],
-                // use style-loader in development
-                fallback: 'style-loader'
             })
         }]
     }
