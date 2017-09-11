@@ -1,6 +1,5 @@
 /* global module, process, require, __dirname */
 
-const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const fs = require('fs');
@@ -12,8 +11,7 @@ const extractCss = new ExtractTextPlugin({
     filename: 'css/[name].css'
 });
 const extractSass = new ExtractTextPlugin({
-    filename: 'css/[name].css',
-    // disable: process.env.NODE_ENV === 'development'
+    filename: 'css/[name].css'
 });
 
 // dir path
@@ -48,8 +46,6 @@ const getEntry = (files) => {
     return entry;
 };
 const entry = getEntry(read(fileDir));
-console.log(entry);
-console.log(__dirname + outputDir);
 
 // webpack config
 const config = {
