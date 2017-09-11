@@ -1,4 +1,4 @@
-/* global module, process, require */
+/* global module, process, require, __dirname */
 
 const path = require('path');
 const webpack = require('webpack');
@@ -9,7 +9,7 @@ const gc = require('./global.config.js');
 
 // extract style
 const extractCss = new ExtractTextPlugin({
-    filename: 'css/[name].css',
+    filename: 'css/[name].css'
 });
 
 // dir path
@@ -24,15 +24,16 @@ const fileDir = sourceDir + '/js';
 const read = (dir) =>
     fs.readdirSync(dir)
         .reduce((files, file) => {
-            if (fs.statSync(path.join(dir, file)).isDirectory()) {
-                return files.concat(read(path.join(dir, file)));
+            const filePath = dir + '/' +file;
+            if (fs.statSync(filePath).isDirectory()) {
+                return files.concat(read(filePath));
             }
 
             if (file !== 'entry.js') {
                 return files;
             }
 
-            return files.concat('./' + path.join(dir, file));
+            return files.concat(filePath);
         }, []);
 const getEntry = (files) => {
     const entry = {};
@@ -111,7 +112,7 @@ if (env === 'production') {
     config.devtool = '#source-map';
     config.plugins = (config.plugins || []).concat([
         new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendors',
+            name: 'vendors'
         }),
         new webpack.DefinePlugin({
             'process.env': {
