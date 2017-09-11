@@ -9,12 +9,12 @@ src/test/resources/static/js/compiled
 src/test/resources/static/js/.module-cache
 target
 out
+dist
 
 # IntelliJ
 
 .idea
 *.iml
-dist
 
-## report
+# report
 /coverage/
