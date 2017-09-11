@@ -12,6 +12,7 @@
     "babel-register": "^6.24.1",
     "bdd-lazy-var": "^1.2.1",
     "chai": "^3.5.0",
+    "cross-env": "^5.0.5",
     "css-loader": "^0.26.1",
     "eslint": "^4.1.0",
     "eslint-loader": "^1.6.1",
@@ -45,9 +46,9 @@
     "react-dom": "^15.6.1"
   },
   "scripts": {
-    "watch": "NODE_ENV=development webpack-dev-server --progress --colors --hot",
+    "watch": "cross-env NODE_ENV=development webpack-dev-server --progress --colors --hot",
     "test": "karma start",
-    "dev-build": "NODE_ENV=development webpack -d --progress --colors",
-    "prod-build": "NODE_ENV=production webpack -d -p --progress --colors --hide-modules"
+    "dev-build": "cross-env NODE_ENV=development webpack -d --progress --colors",
+    "prod-build": "cross-env NODE_ENV=production webpack -d -p --progress --colors --hide-modules"
   }
 }
