@@ -252,6 +252,7 @@
                         </configuration>
                         <executions>
                             <execution>
+                                <id>npm-prod-build</id>
                                 <goals>
                                     <goal>npm</goal>
                                 </goals>

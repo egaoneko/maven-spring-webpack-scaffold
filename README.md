@@ -9,6 +9,9 @@ mvn frontend:install-node-and-npm@install-node-and-npm frontend:npm@npm-install 
 # build
 mvn frontend:install-node-and-npm@install-node-and-npm frontend:npm@npm-install frontend:npm@npm-build
 
+# production build
+mvn frontend:install-node-and-npm@install-node-and-npm frontend:npm@npm-install frontend:npm@npm-prod-build -Pproduction
+
 # test
 mvn frontend:install-node-and-npm@install-node-and-npm frontend:npm@npm-install frontend:npm@npm-test
 ```
