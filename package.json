@@ -44,7 +44,7 @@
     "react-dom": "^15.6.1"
   },
   "scripts": {
-    "watch": "cross-env NODE_ENV=development webpack-dev-server --progress --colors --hot",
+    "watch": "cross-env NODE_ENV=development webpack --progress --colors --watch",
     "test": "karma start",
     "dev-build": "cross-env NODE_ENV=development webpack -d --progress --colors",
     "prod-build": "cross-env NODE_ENV=production webpack -d -p --progress --colors --hide-modules"
