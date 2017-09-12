@@ -1,4 +1,4 @@
-/* global module, require */
+/* global module, require, __dirname */
 
 const path = require('path');
 const webpackConfig = require('./webpack.config.js');
@@ -6,11 +6,9 @@ const gc = require('./global.config.js');
 
 // dir path
 const sourceDir = gc.baseDir + gc.resourceDir;
-const sourcePattern = gc.basePath + gc.baseDir + gc.resourceDir + '/js/**/*.js';
 const testPattern = gc.basePath + gc.baseDir + gc.testDir + '/**/*.spec.js';
 
 const preprocessor = {};
-preprocessor[sourcePattern] = ['webpack', 'coverage'];
 preprocessor[testPattern] = ['webpack'];
 
 // add webpack test config
@@ -21,7 +19,7 @@ const rules = [{
     enforce: 'post',
     test: /\.js/,
     exclude: /(node_modules|bower_components)/,
-    include: path.join(sourceDir),  // instrument only testing sources with Istanbul, after ts-loader runs
+    include: sourceDir,  // instrument only testing sources with Istanbul, after ts-loader runs
     loader: 'istanbul-instrumenter-loader'
 }];
 webpackConfig.module.rules = webpackConfig.module.rules.concat(rules);
@@ -37,7 +35,6 @@ module.exports = function (config) {
         ],
 
         files: [
-            {pattern: sourcePattern, watched: false},
             {pattern: testPattern, watched: false}
         ],
 
@@ -85,7 +82,7 @@ module.exports = function (config) {
                 require: [require.resolve('bdd-lazy-var/bdd_lazy_var_global')],
 
                 // custom ui, defined in required file above
-                ui: 'bdd-lazy-var/global',
+                ui: 'bdd-lazy-var/global'
             }
         },
 
@@ -93,6 +90,6 @@ module.exports = function (config) {
         webpack: webpackConfig,
         webpackMiddleware: {
             stats: 'errors-only'
-        },
+        }
     });
 };
