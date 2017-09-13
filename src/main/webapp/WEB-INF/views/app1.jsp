@@ -5,7 +5,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>App1</title>
-        <link rel="stylesheet" href="resources/static/dist/css/app2/entry.css">
+        <link rel="stylesheet" href="resources/static/dist/css/app1/entry.css">
     </head>
 
     <body>

@@ -5,9 +5,11 @@ const baseDir = '/src/main/webapp';
 const distDir = '/dist';
 const resourceDir = '/resources/static';
 const testDir = '/resources/test';
+
+const sourceDir = basePath+ baseDir + resourceDir + '/js/';
 const vendors = {
     entry: {
-        vendors: ['jquery']
+        vendors: [sourceDir + 'vendors.js', 'jquery']
     },
     providePlugin: {
         $: 'jquery',

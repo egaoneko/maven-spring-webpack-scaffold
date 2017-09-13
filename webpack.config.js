@@ -13,7 +13,7 @@ const extractCss = new ExtractTextPlugin({
 });
 
 // dir path
-const sourceDir = gc.basePath+ gc.baseDir + gc.resourceDir;
+const sourceDir = gc.basePath + gc.baseDir + gc.resourceDir;
 const outputDir = gc.baseDir + gc.resourceDir + gc.distDir;
 
 const devPort = 9090;
@@ -24,7 +24,7 @@ const fileDir = sourceDir + '/js';
 const read = (dir) =>
     fs.readdirSync(dir)
         .reduce((files, file) => {
-            const filePath = dir + '/' +file;
+            const filePath = dir + '/' + file;
             if (fs.statSync(filePath).isDirectory()) {
                 return files.concat(read(filePath));
             }
