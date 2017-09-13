@@ -1,4 +1,4 @@
-/* global module, require */
+/* global module */
 
 const basePath = '.';
 const baseDir = '/src/main/webapp';
