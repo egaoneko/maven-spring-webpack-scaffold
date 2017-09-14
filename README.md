@@ -47,6 +47,10 @@ Spring and Maven configurations is done by the 'pom.xml' file at the project's r
 
 Client global states configuration is done by the 'global.config.js' file at the project's root.
 
+#### Vendors
+
+The vendors configuration is done by the 'vendors.js' file at the client resources's js folder.
+
 ### Webpack
 
 Webpack configuration is done by the 'webpack.config.js' file at the project's root.
